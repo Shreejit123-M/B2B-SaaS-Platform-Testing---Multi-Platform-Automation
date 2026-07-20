@@ -217,6 +217,7 @@ def environment() -> EnvironmentConfig:
         base_url=_require_env(f"{prefix}_BASE_URL"),
         api_base_url=_require_env(f"{prefix}_API_BASE_URL"),
         headless=_env_bool("HEADLESS", default=True),
+        use_browserstack=_env_bool("USE_BROWSERSTACK", default=False),
         browser_name=_env("BROWSER", "chromium").strip().lower(),
         default_timeout_ms=int(_env("DEFAULT_TIMEOUT_MS", "30000")),
     )

@@ -1,0 +1,49 @@
+"""Requirements for WorkFlow Pro QA Automation Framework"""
+
+# Core Testing Framework
+pytest==7.4.3
+pytest-xdist==3.5.0
+pytest-html==4.1.1
+pytest-timeout==2.2.0
+pytest-repeat==0.9.1
+
+# Browser Automation
+playwright==1.40.0
+
+# HTTP & API Testing
+requests==2.31.0
+requests-mock==1.11.0
+
+# Reporting
+allure-pytest==2.13.2
+
+# Configuration Management
+python-dotenv==1.0.0
+pyyaml==6.0.1
+
+# Logging & Utilities
+colorlog==6.8.0
+faker==20.1.0
+
+# Code Quality & Testing Tools
+black==23.12.0
+flake8==6.1.0
+isort==5.13.2
+
+# Type Checking
+mypy==1.7.1
+
+# JSON Schema Validation
+jsonschema==4.20.0
+
+# Data Handling
+pandas==2.1.4
+
+# BrowserStack Support
+browserstack-local==1.2.8
+
+# Performance Testing
+pytest-benchmark==4.0.0
+
+# Parallel Execution
+pytest-concurrent==0.3.0

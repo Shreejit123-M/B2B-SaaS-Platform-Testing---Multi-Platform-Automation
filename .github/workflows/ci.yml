@@ -36,10 +36,15 @@ jobs:
 
       - name: Run smoke suite
         env:
-          TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
-          TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
-          TEST_USER_2FA_SECRET: ${{ secrets.TEST_USER_2FA_SECRET }}
-          WORKFLOWPRO_API_BASE_URL: ${{ secrets.WORKFLOWPRO_API_BASE_URL }}
+          QA_BASE_URL: ${{ secrets.QA_BASE_URL }}
+          QA_API_BASE_URL: ${{ secrets.QA_API_BASE_URL }}
+          QA_USERNAME: ${{ secrets.QA_USERNAME }}
+          QA_PASSWORD: ${{ secrets.QA_PASSWORD }}
+          QA_TENANT_ID: ${{ secrets.QA_TENANT_ID }}
+          QA_TENANT_NAME: ${{ secrets.QA_TENANT_NAME }}
+
+  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: |
           pytest -m smoke -n auto \
             --html=reports/html/report.html --self-contained-html \

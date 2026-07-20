@@ -1,4 +1,4 @@
-"""Requirements for WorkFlow Pro QA Automation Framework"""
+# Requirements for WorkFlow Pro QA Automation Framework
 
 # Core Testing Framework
 pytest==7.4.3

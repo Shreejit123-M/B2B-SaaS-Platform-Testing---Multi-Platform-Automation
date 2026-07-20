@@ -16,7 +16,9 @@ VALID_PASSWORD = os.environ.get("TEST_USER_PASSWORD", "ValidPass123!")
 @pytest.fixture
 def auth_api(environment: str, tenant: str):
     """Provide an AuthAPI client, closed after the test."""
-    client = AuthAPI(base_url=environment, tenant_id=tenant)
+    client = AuthAPI(
+        base_url=environment.api_base_url,
+        tenant_id=tenant.tenant_id)
     yield client
     client.close()
 

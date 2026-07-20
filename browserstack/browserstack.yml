@@ -1,0 +1,39 @@
+# BrowserStack configuration for the WorkFlow Pro QA automation suite.
+# Credentials are read from environment variables — never hardcode them here.
+# Reference: https://www.browserstack.com/docs/automate/playwright
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+projectName: WorkFlow Pro
+buildName: workflowpro-qa-automation-${BUILD_NUMBER:-local}
+
+# Desktop cross-browser matrix — Chrome/Firefox run locally/headless in CI
+# for speed; Safari is reserved for BrowserStack since it can't run
+# headless outside macOS. See Framework_Design.md, Section 11.
+platforms:
+  - os: OS X
+    osVersion: Sonoma
+    browserName: playwright-webkit
+    browserVersion: latest
+
+  # Mobile web matrix — no native app is in scope (mobile web browsers only).
+  - deviceName: iPhone 15
+    osVersion: "17"
+    browserName: playwright-webkit
+    realMobile: true
+
+  - deviceName: Samsung Galaxy S24
+    osVersion: "14"
+    browserName: playwright-chromium
+    realMobile: true
+
+parallelsPerPlatform: 1
+browserstackLocal: false
+debug: true
+networkLogs: true
+consoleLogs: errors
+
+# Video recording aids failure triage; the resulting session URL is
+# attached to Allure results per Framework_Design.md, Section 8.
+video: true

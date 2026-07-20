@@ -43,8 +43,8 @@ jobs:
           QA_TENANT_ID: ${{ secrets.QA_TENANT_ID }}
           QA_TENANT_NAME: ${{ secrets.QA_TENANT_NAME }}
 
-  BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-  BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+          BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+          BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         run: |
           pytest -m smoke -n auto \
             --html=reports/html/report.html --self-contained-html \

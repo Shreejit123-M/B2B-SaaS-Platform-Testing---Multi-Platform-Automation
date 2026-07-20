@@ -46,4 +46,4 @@ browserstack-local==1.2.8
 pytest-benchmark==4.0.0
 
 # Parallel Execution
-pytest-concurrent==0.3.0
+pytest-concurrent==0.2.2

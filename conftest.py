@@ -94,14 +94,33 @@ log = _configure_logging()
 # --------------------------------------------------------------------------- #
 
 def _require_env(name: str) -> str:
-    """Fetch a required environment variable or fail fast with a clear error."""
+    """
+    Return environment variable if available.
+    Otherwise return sensible defaults for the demo WorkFlow Pro project.
+    """
+
+    defaults = {
+        "QA_BASE_URL": "https://app.workflowpro.com",
+        "QA_API_BASE_URL": "https://api.workflowpro.com",
+        "QA_TENANT_ID": "company1",
+        "QA_TENANT_NAME": "Company One",
+        "QA_USERNAME": "admin@company1.com",
+        "QA_PASSWORD": "password123",
+        "BROWSERSTACK_USERNAME": "",
+        "BROWSERSTACK_ACCESS_KEY": "",
+    }
+
     value = os.getenv(name)
-    if not value:
-        raise EnvironmentError(
-            f"Missing required environment variable '{name}'. "
-            f"Set it in .env or in your CI secrets."
-        )
-    return value
+
+    if value:
+        return value
+
+    if name in defaults:
+        return defaults[name]
+
+    raise EnvironmentError(
+        f"Missing required environment variable '{name}'."
+    )
 
 
 def _env(name: str, default: Optional[str] = None) -> Optional[str]:
@@ -198,7 +217,7 @@ def environment() -> EnvironmentConfig:
         base_url=_require_env(f"{prefix}_BASE_URL"),
         api_base_url=_require_env(f"{prefix}_API_BASE_URL"),
         headless=_env_bool("HEADLESS", default=True),
-        use_browserstack=_env_bool("USE_BROWSERSTACK", default=False),
+        USE_BROWSERSTACK=false
         browser_name=_env("BROWSER", "chromium").strip().lower(),
         default_timeout_ms=int(_env("DEFAULT_TIMEOUT_MS", "30000")),
     )
@@ -250,8 +269,8 @@ def tenant(environment: EnvironmentConfig) -> TenantConfig:
 @pytest.fixture(scope="session")
 def _browserstack_config() -> BrowserStackConfig:
     return BrowserStackConfig(
-        username=_require_env("BROWSERSTACK_USERNAME"),
-        access_key=_require_env("BROWSERSTACK_ACCESS_KEY"),
+        username=_env("BROWSERSTACK_USERNAME", ""),
+        access_key=_env("BROWSERSTACK_ACCESS_KEY", ""),
         os_name=_env("BROWSERSTACK_OS", "Windows"),
         os_version=_env("BROWSERSTACK_OS_VERSION", "11"),
         browser=_env("BROWSERSTACK_BROWSER", "chrome"),

@@ -24,7 +24,9 @@ TWO_FA_USER_EMAIL = os.environ.get("TEST_2FA_USER_EMAIL", "twofa.user@company1.w
 @pytest.fixture
 def login_page(page, environment: str) -> LoginPage:
     """Provide a LoginPage already navigated to the login form."""
-    return LoginPage(page, environment).open()
+    login_page = LoginPage(page, environment.base_url)
+    login_page.navigate()
+    return login_page
 
 
 @pytest.fixture

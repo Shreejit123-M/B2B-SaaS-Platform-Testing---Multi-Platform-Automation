@@ -18,7 +18,10 @@ logger = get_logger(__name__)
 @pytest.fixture
 def users_api(environment: str, tenant: str):
     """Provide a UsersAPI client, closed after the test."""
-    client = UsersAPI(base_url=environment, tenant_id=tenant)
+    client = UsersAPI(
+        base_url=environment.api_base_url,
+        tenant_id=tenant.tenant_id
+    )
     yield client
     client.close()
 

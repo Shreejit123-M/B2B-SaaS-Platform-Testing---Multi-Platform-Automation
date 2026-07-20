@@ -473,25 +473,15 @@ def _build_api_session(
     return session
 
 
+from api.auth_api import AuthAPI
+
 @pytest.fixture
-def auth_api(
-    environment: EnvironmentConfig,
-    tenant: TenantConfig,
-) -> Generator[requests.Session, None, None]:
-    """Unauthenticated-by-default session scoped to the auth endpoints."""
-    session = requests.Session()
-    session.headers.update(
-        {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            "X-Tenant-Id": tenant.tenant_id,
-        }
+def auth_api(environment: EnvironmentConfig,
+             tenant: TenantConfig) -> AuthAPI:
+    return AuthAPI(
+        base_url=environment.api_base_url,
+        tenant_id=tenant.tenant_id,
     )
-    session.base_url = environment.api_base_url.rstrip("/")  # type: ignore[attr-defined]
-    try:
-        yield session
-    finally:
-        session.close()
 
 
 @pytest.fixture
@@ -503,18 +493,15 @@ def projects_api(environment: EnvironmentConfig,
     )
 
 
+from api.users_api import UsersAPI
+
 @pytest.fixture
-def users_api(
-    environment: EnvironmentConfig,
-    tenant: TenantConfig,
-    auth_token: str,
-) -> Generator[requests.Session, None, None]:
-    """Authenticated requests.Session pre-configured for the users API."""
-    session = _build_api_session(environment.api_base_url, auth_token, tenant.tenant_id)
-    try:
-        yield session
-    finally:
-        session.close()
+def users_api(environment: EnvironmentConfig,
+              tenant: TenantConfig) -> UsersAPI:
+    return UsersAPI(
+        base_url=environment.api_base_url,
+        tenant_id=tenant.tenant_id,
+    )
 
 
 # --------------------------------------------------------------------------- #

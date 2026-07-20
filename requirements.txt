@@ -6,9 +6,10 @@ pytest-xdist==3.5.0
 pytest-html==4.1.1
 pytest-timeout==2.2.0
 pytest-repeat==0.9.1
+pytest-playwright>=0.7.0
 
 # Browser Automation
-playwright==1.40.0
+playwright==1.54.0
 
 # HTTP & API Testing
 requests==2.31.0

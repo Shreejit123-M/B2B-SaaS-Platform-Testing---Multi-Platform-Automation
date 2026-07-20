@@ -80,7 +80,7 @@ def test_list_projects_scoped_to_requesting_tenant(projects_api: ProjectsAPI, au
 def test_mismatched_tenant_header_is_blocked(environment: str, auth_token: str) -> None:
     """A request whose X-Tenant-ID doesn't match the token's actual tenant
     must be rejected (403/404), never returning another tenant's data."""
-    other_tenant_client = ProjectsAPI(base_url=environment, tenant_id="company2")
+    other_tenant_client = ProjectsAPI(base_url=environment.api_base_url, tenant_id="company2")
     try:
         with pytest.raises(ProjectAccessBlocked):
             # auth_token belongs to the fixture's configured tenant (see

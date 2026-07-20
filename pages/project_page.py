@@ -11,7 +11,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class ProjectsPage(BasePage):
+class ProjectPage(BasePage):
     """Page Object for Projects listing page."""
     
     # Selectors

@@ -22,6 +22,7 @@ Environment variables are read from `.env` (via python-dotenv) and/or
 the real process environment (CI, GitHub Actions secrets). Nothing is
 hardcoded.
 """
+from api.projects_api import ProjectsAPI
 
 from __future__ import annotations
 
@@ -494,17 +495,12 @@ def auth_api(
 
 
 @pytest.fixture
-def projects_api(
-    environment: EnvironmentConfig,
-    tenant: TenantConfig,
-    auth_token: str,
-) -> Generator[requests.Session, None, None]:
-    """Authenticated requests.Session pre-configured for the projects API."""
-    session = _build_api_session(environment.api_base_url, auth_token, tenant.tenant_id)
-    try:
-        yield session
-    finally:
-        session.close()
+def projects_api(environment: EnvironmentConfig,
+                 tenant: TenantConfig) -> ProjectsAPI:
+    return ProjectsAPI(
+        base_url=environment.api_base_url,
+        tenant_id=tenant.tenant_id,
+    )
 
 
 @pytest.fixture
